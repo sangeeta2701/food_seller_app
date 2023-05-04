@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_seller_app/Screens/splash_screen.dart';
+import 'package:food_seller_app/authentication/auth_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Sellers App",
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: AuthScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+      ),
+      // home: SplashScreen(),
     );
   }
 }
