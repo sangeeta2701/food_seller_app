@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             alignment: Alignment.center,
             child: Padding(padding: EdgeInsets.all(15),
-            child: Image.asset("assets/images/seller.png",height: 270,),
+            child: Image.asset("assets/images/seller.png",height: 250,),
             ),
           ),
           Form(

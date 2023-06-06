@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_seller_app/utils/colors.dart';
 import 'package:food_seller_app/widgets/customTextField.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -24,6 +26,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController locationController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  Future<void> _getImage() async {
+    imageFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      imageFile;
+    });
+  }
+
+  Position? position;
+  List<Placemark>? placeMarks;
+
+  getCurrentLocation() async {
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+    Position newPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    position = newPosition;
+
+    placeMarks =
+        await placemarkFromCoordinates(position!.latitude, position!.longitude);
+
+    Placemark pMark = placeMarks![0];
+    String completeAddress =
+        "${pMark.subThoroughfare} ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea}, ${pMark.postalCode},${pMark.country}";
+
+    locationController.text = completeAddress;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,6 +60,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Column(
         children: [
           InkWell(
+            onTap: () {
+              _getImage();
+            },
             child: CircleAvatar(
               radius: MediaQuery.of(context).size.width * 0.15,
               backgroundColor: wColor,
@@ -96,7 +128,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       alignment: Alignment.center,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          print("clicked");
+                          getCurrentLocation();
+                          // print("clicked");
                         },
                         label: Text(
                           "Get My Current Location",
@@ -119,12 +152,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: ElevatedButton(
-              
               onPressed: () {
                 print("Clicked");
               },
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 80,vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 80, vertical: 10),
                 primary: wColor,
               ),
               child: Text(

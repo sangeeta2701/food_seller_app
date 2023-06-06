@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10),),
 
       ),
-      padding: EdgeInsets.all(10),
+      // padding: EdgeInsets.all(10),
       margin: EdgeInsets.all(10),
       child: TextFormField(
         controller: controller,

@@ -1,9 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_seller_app/Screens/splash_screen.dart';
 import 'package:food_seller_app/authentication/auth_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -16,11 +18,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Sellers App",
       debugShowCheckedModeBanner: false,
-      home: AuthScreen(),
+      // home: AuthScreen(),
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      // home: SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }
