@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_seller_app/utils/colors.dart';
 import 'package:food_seller_app/widgets/customTextField.dart';
+import 'package:food_seller_app/widgets/error_dialog.dart';
+import 'package:food_seller_app/widgets/loading_dialog.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,6 +53,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
         "${pMark.subThoroughfare} ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea}, ${pMark.postalCode},${pMark.country}";
 
     locationController.text = completeAddress;
+  }
+
+  Future<void> formValidation() async {
+    if (imageFile == null) {
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorDialog(message: "Please select an image.");
+          });
+    } else {
+      if (passwordController.text == confirmPasswordController.text) {
+        if (nameController.text.isNotEmpty &&
+            emailController.text.isNotEmpty &&
+            phoneController.text.isNotEmpty &&
+            locationController.text.isNotEmpty &&
+            confirmPasswordController.text.isNotEmpty) {
+          // start uploading image
+          showDialog(
+              context: context,
+              builder: (c) {
+                return LoadingDialog(message: "Registering Account!!");
+              });
+        } else {
+          showDialog(
+              context: context,
+              builder: (c) {
+                return ErrorDialog(
+                    message:
+                        "Please enter the required field for registration.");
+              });
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (c) {
+              return ErrorDialog(message: "Password do not match.");
+            });
+      }
+    }
   }
 
   @override
@@ -153,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: ElevatedButton(
               onPressed: () {
-                print("Clicked");
+                formValidation();
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 80, vertical: 10),
