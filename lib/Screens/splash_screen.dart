@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:food_seller_app/authentication/auth_screen.dart';
+import 'package:food_seller_app/global/global.dart';
+import 'package:food_seller_app/mainScreens/home_screen.dart';
 import 'package:food_seller_app/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,13 +16,26 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   startTimer() {
+    
     Timer(Duration(seconds: 4), () async {
-      Navigator.push(
+      //if user is already loggedIn
+      if(firebaeAuth.currentUser != null){
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+      }else{
+        Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => AuthScreen(),
         ),
       );
+
+      }
+      
     });
   }
 
