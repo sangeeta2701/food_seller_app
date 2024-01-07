@@ -2,15 +2,6 @@
 
 A new Flutter project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Output/Screenshots
+![ifood1](https://github.com/sangeeta2701/food_seller_app/assets/86039068/f7f244c3-2339-4b7b-b550-38de09786fe9)
+![ifood2](https://github.com/sangeeta2701/food_seller_app/assets/86039068/e2a58e01-8b69-41ca-9485-71083674e82f)
